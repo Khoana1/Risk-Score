@@ -1,0 +1,34 @@
+modules:
+  jira:issueContext:
+    - key: risk-score-issue-context
+      resource: main
+      resolver:
+        function: resolver
+      render: native
+      title: Risk Score
+      description: Hiển thị Risk Score theo priority và thông tin issue.
+      label: Risk Score
+      status:
+        type: lozenge
+        value:
+          label: Low Risk
+          type: success
+      dynamicProperties:
+        function: risk-score-dyn-props
+  function:
+    - key: resolver
+      handler: index.handler
+    - key: risk-score-dyn-props
+      handler: dynamic-properties.handler
+resources:
+  - key: main
+    path: src/frontend/index.jsx
+permissions:
+  scopes:
+    - read:jira-work
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/8f95fa23-b52a-4939-bced-04a364dcde62
